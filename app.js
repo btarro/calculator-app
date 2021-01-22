@@ -13,11 +13,11 @@ document.querySelectorAll(".btn.numbers").forEach((numberButton) => {
 
     if (!operator) {
       firstOperand += number;
-      display.textContent = parseFloat(firstOperand);
+      display.textContent = parseInt(firstOperand);
       return;
     }
     secondOperand += number;
-    display.textContent = parseFloat(secondOperand);
+    display.textContent = parseInt(secondOperand);
   });
 });
 
@@ -38,7 +38,7 @@ document.querySelectorAll(".btn.operators").forEach((operatorButton) => {
     if (firstOperand) {
       operator = currentOperation;
     } else {
-      firstOperand = display.textContent;
+      firstOperand = display.textContent.replace(/,/g, "");
       operator = currentOperation;
     }
   });
@@ -65,10 +65,10 @@ document.querySelector(".btn.special-clear").addEventListener("click", () => {
 
 function calculate() {
   const operations = {
-    "+": () => parseFloat(firstOperand) + parseFloat(secondOperand),
-    "-": () => parseFloat(firstOperand) - parseFloat(secondOperand),
-    x: () => parseFloat(firstOperand) * parseFloat(secondOperand),
-    "÷": () => parseFloat(firstOperand) / parseFloat(secondOperand),
+    "+": () => parseInt(firstOperand) + parseInt(secondOperand),
+    "-": () => parseInt(firstOperand) - parseInt(secondOperand),
+    x: () => parseInt(firstOperand) * parseInt(secondOperand),
+    "÷": () => parseInt(firstOperand) / parseInt(secondOperand),
   };
 
   return operations[operator]();
