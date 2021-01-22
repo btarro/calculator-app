@@ -13,11 +13,11 @@ document.querySelectorAll(".btn.numbers").forEach((numberButton) => {
 
     if (!operator) {
       firstOperand += number;
-      display.textContent = firstOperand;
+      display.textContent = parseFloat(firstOperand);
       return;
     }
     secondOperand += number;
-    display.textContent = secondOperand;
+    display.textContent = parseFloat(secondOperand);
   });
 });
 
@@ -25,7 +25,20 @@ document.querySelectorAll(".btn.operators").forEach((operatorButton) => {
   operatorButton.addEventListener("click", () => {
     const currentOperation = operatorButton.value;
 
+    if (firstOperand && operator && secondOperand) {
+      const result = calculate();
+      firstOperand = `${result}`;
+      secondOperand = "";
+      operator = null;
+      display.textContent = result.toLocaleString({
+        maxiumFractionDigits: 3,
+      });
+    }
+
     if (firstOperand) {
+      operator = currentOperation;
+    } else {
+      firstOperand = display.textContent;
       operator = currentOperation;
     }
   });
@@ -34,10 +47,12 @@ document.querySelectorAll(".btn.operators").forEach((operatorButton) => {
 document.querySelector(".btn.equal").addEventListener("click", () => {
   if (firstOperand && operator && secondOperand) {
     const result = calculate();
-    firstOperand = `${result}`;
+    firstOperand = "";
     secondOperand = "";
     operator = null;
-    display.textContent = result;
+    display.textContent = result.toLocaleString({
+      maxiumFractionDigits: 3,
+    });
   }
 });
 
